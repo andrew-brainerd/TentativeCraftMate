@@ -1,6 +1,6 @@
 ## Interface: 20501
-## Title: <Tentative> CraftMate
-## Notes: <Tentative> Guild Utility
+## Title: <Tentative> CraftMate v1.0
+## Notes: <Tentative> Craft Updater
 ## Author: andrew-brainerd
 ## Version: 1.0
 ## SavedVariables: CraftLocker
