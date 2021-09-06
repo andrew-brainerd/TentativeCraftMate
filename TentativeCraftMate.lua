@@ -8,14 +8,12 @@ function TentativeCraftMate:SaveTrades()
 
     local characterName = GetUnitName("player", true)
 
-    TradeList[characterName] = {}
-
     for i = 1, GetNumTradeSkills() do
         tradeItemLink = GetTradeSkillItemLink(i)
         if tradeItemLink then 
             local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, itemSellPrice = GetItemInfo(tradeItemLink)
 
-            TradeList[characterName][i] = {
+            TradeList[i] = {
                 itemName = itemName,
                 itemRarity = itemRarity,
                 itemLevel = itemLevel,
@@ -29,8 +27,10 @@ function TentativeCraftMate:SaveTrades()
     end
 
     CraftLocker = {
-        CraftList = CraftList,
-        TradeList = TradeList
+        characterName = {
+            CraftList = CraftList,
+            TradeList = TradeList
+        }
     }
 end
 
@@ -67,8 +67,10 @@ function TentativeCraftMate:SaveCrafting()
     end
 
     CraftLocker = {
-        CraftList = CraftList,
-        TradeList = TradeList
+        characterName = {
+            CraftList = CraftList,
+            TradeList = TradeList
+        }
     }
 end
 
