@@ -1,8 +1,8 @@
 ## Interface: 20501
-## Title: <Tentative> CraftMate v1.0
+## Title: <Tentative> CraftMate v1.1
 ## Notes: <Tentative> Craft Updater
 ## Author: andrew-brainerd
-## Version: 1.0
+## Version: 1.1
 ## SavedVariables: CraftLocker
 
 embeds.xml

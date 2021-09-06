@@ -1,17 +1,21 @@
 TentativeCraftMate = LibStub("AceAddon-3.0"):NewAddon("<Tentative> CraftMate", "AceConsole-3.0", "AceEvent-3.0")
 
-function TentativeCraftMate:SaveTrades(name)
-    TentativeCraftMate:Print("Saving Trades Data")
-    local TradeList = {}
+TradeList = {}
+CraftList = {}
 
-    TradeList[name] = {}
+function TentativeCraftMate:SaveTrades()
+    TentativeCraftMate:Print("Saving Trades Data")
+
+    local characterName = GetUnitName("player", true)
+
+    TradeList[characterName] = {}
 
     for i = 1, GetNumTradeSkills() do
         tradeItemLink = GetTradeSkillItemLink(i)
         if tradeItemLink then 
-            local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, itemSellPrice = GetItemInfo(tradeItemLink) 
-            TentativeCraftMate:Print("Trade: " .. itemLink)
-            TradeList[name][i] = {
+            local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, itemSubType, itemStackCount, itemEquipLoc, itemTexture, itemSellPrice = GetItemInfo(tradeItemLink)
+
+            TradeList[characterName][i] = {
                 itemName = itemName,
                 itemRarity = itemRarity,
                 itemLevel = itemLevel,
@@ -25,13 +29,15 @@ function TentativeCraftMate:SaveTrades(name)
     end
 
     CraftLocker = {
+        CraftList = CraftList,
         TradeList = TradeList
     }
 end
 
-function TentativeCraftMate:SaveCrafting(characterName)
-    TentativeCraftMate:Print("Saving Crafting Data for " .. characterName)
-    local CraftList = {}
+function TentativeCraftMate:SaveCrafting()
+    TentativeCraftMate:Print("Saving Crafting Data")
+
+    local characterName = GetUnitName("player", true)
 
     CraftList[characterName] = {}
 
@@ -61,22 +67,23 @@ function TentativeCraftMate:SaveCrafting(characterName)
     end
 
     CraftLocker = {
-        CraftList = CraftList
+        CraftList = CraftList,
+        TradeList = TradeList
     }
 end
 
-TentativeCraftMate:RegisterEvent("PLAYER_ENTERING_WORLD", function()
-    name = GetUnitName("player", true)
-    -- CraftLocker = {}
-    TentativeCraftMate:Print("Welcome " .. name .. "!")
-end)
-
 TentativeCraftMate:RegisterEvent("TRADE_SKILL_UPDATE", function()
-    name = GetUnitName("player", true)
-    TentativeCraftMate:SaveTrades(name)
+    local guildName = GetGuildInfo("player")
+
+    if (guildName == "Tentative") then
+        TentativeCraftMate:SaveTrades()
+    end
 end)
 
 TentativeCraftMate:RegisterEvent("CRAFT_UPDATE", function()
-    name = GetUnitName("player", true)
-    TentativeCraftMate:SaveCrafting(name)
+    local guildName = GetGuildInfo("player")
+
+    if (guildName == "Tentative") then
+        TentativeCraftMate:SaveCrafting()
+    end
 end)
